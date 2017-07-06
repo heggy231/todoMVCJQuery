@@ -4,7 +4,7 @@ Walk through todoMVCJQuery with WatchAndCode
 **TodoMVC jQuery**
 Live Demo: https://rose-quince.glitch.me/#/all
 
-Original file location URL: https://hyperdev.com/#!/project/maze-stealer
+Original file location URL: https://rose-quince.glitch.me
 
 This is the workspace for the watchandcode.com
 screencast series on the jQuery version of TodoMVC.
