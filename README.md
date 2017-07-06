@@ -2,8 +2,9 @@
 Walk through todoMVCJQuery with WatchAndCode
 
 **TodoMVC jQuery**
+Live Demo: https://rose-quince.glitch.me/#/all
 
-URL: https://hyperdev.com/#!/project/maze-stealer
+Original file location URL: https://hyperdev.com/#!/project/maze-stealer
 
 This is the workspace for the watchandcode.com
 screencast series on the jQuery version of TodoMVC.
