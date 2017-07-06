@@ -2,9 +2,7 @@
 Walk through todoMVCJQuery with WatchAndCode
 
 **TodoMVC jQuery**
-Live Demo: https://rose-quince.glitch.me/#/all
-
-Original file location URL: https://rose-quince.glitch.me
+Live Demo: https://rose-quince.glitch.me
 
 This is the workspace for the watchandcode.com
 screencast series on the jQuery version of TodoMVC.
@@ -63,3 +61,38 @@ Notes
 1. Go through the debugger on .getActiveTodos and .destroyCompleted.
 2. See what `this` is without using bind.
 3. Talk about method chaining.
+
+Day1 code walk thru:
+
+1. App.indexFromEl ()
+2. App.destroy ()
+
+Day2 code walk thru:
+
+1. App.bindEvents ()
+2. App.toggleAll ()
+3. App.toggle ()
+4. App.getActiveTodos ()
+5. App.getCompletedTodos ()
+6. App.getFillteredTodos ()
+7. App.destroyCompleted ()
+
+Day3 code walk thru:
+
+1. App.create ()
+2. App.edit ()
+3. App.editKeyUp ()
+4. App.update ()
+5. util.uuid ()
+
+Day4 code walk thru:
+
+1. App.render ()
+2. App.renderFooter ()
+
+Day5 code walk thru:
+
+1. util.pluralize ()
+2. util.store ()
+3. App.init ()
+
