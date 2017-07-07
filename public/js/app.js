@@ -130,7 +130,10 @@ jQuery(function ($) {
 			var i = todos.length;
       
     // while i > 0; first i = todos.length, then it will decrease by 1
-    // first i = length then i-- decrease length-1
+    // first i = length then i-- decrease post decrement, operator process
+    // after while stmt process i value then i gets decreased by 1
+    // https://youtu.be/rYVy-bUWcXQ
+    // pre decrement vs post decrement while loop video hint
 			while (i--) {
         // ith todo element's id match id that you have e.target
 				if (todos[i].id === id) {
