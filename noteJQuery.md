@@ -1,3 +1,16 @@
+Mapped method:
+
+#new-todo			         =>  keyup		=>  .create ()			// key is released
+#toggle-all			         =>  change		=>  .toggleAll ()		         // value of input changes
+#footer #clear-completed	=>  click		=>  .destroyCompleted ()	// click
+#todo-list  .toggle		         =>  change		=>  .toggle ()			// value of input changes
+#todo-list  label		         =>  dbclick		=>  .edit ()			         // double click
+#todo-list  .edit			=>  keyup		=>  .editKeyup ()		         // key is released
+#todo-list  .edit			=>  focusout        =>  .update ()			// element loses focus
+#todo-list  .destroy		=>  click		=>  .destroy ()			// click
+
+
+This is map of element inside of DOM
 1. start from index.html
 look up each method calls for eventListener $().on('mouseEvent',this.methodCall)
 check to see Event Listeners corresponds each event Listeners
@@ -198,3 +211,42 @@ https://www.w3schools.com/js/js_function_call.asp
 				.on('click', '.destroy', this.destroy.bind(this));
 
 - play in console:
+
+// learn about technique: method chaining
+// first, create an empty obj
+var myFakeElement = {};
+
+var myFakeElement = {
+// 'on' method
+	on: function(something) {
+		console.log('Running .on with ' + something);
+	}
+};
+
+myFakeElement.on('gordon');
+// Running .on with gordon
+
+However, when you run myFakeElement as method chaining you must return this at the end of the function.
+
+var myFakeElement = {
+// 'on' method
+	on: function(something) {
+		console.log('Running .on with ' + something);
+		return this;
+	}
+};
+
+myFakeElement
+	.on('heggy')
+	.on('frankie')
+	.on('rajeev');
+
+// second method chaining will run this.on('frankie')
+
+// output: Running .on with heggy, 
+						Running .on with frankie, 
+						Running .on with rajeev
+
+
+8) Day 3
+App.create()
