@@ -104,7 +104,9 @@ function prepForFilterForActiveTodo(todo) {
 	return !todo.completed;
 }
 
-todo.completed = false;
+// make sure todo.completed is indeed false
+// we are assigning todo.completed to be false.
+todo.completed = false;  
 prepForFilterForActiveTodo(todo);
 
 - now pass in prepForFilterForActiveTodo(todo) in higher order function todos.filter.
@@ -117,7 +119,82 @@ todos.filter(function prepForFilterForActiveTodo(todo){
 });
 // returns 2 objects since 2 objts becomes true when prepForFilterForActiveTodo() callback function evaluates !todo.completed;
 
+6) getCompletedTodos() is just the opposite getActiveTodos() 
 
+- console playtime:
+// first set simple test case to check my prepForFilterForActiveTodo function
+// is working
+var todos = {completed: true};
 
+function prepForFilterForActiveTodo(todo) {
+    // active todo> completed: false
+    // but filter method only filters true
+    // therefore, flip it !todo.completed >> !false > true
+	return todo.completed;
+}
 
+todos; // output: true
 
+// create a real test case todo with label and completed
+
+var todo = [
+    {label: "thing1",
+	completed: true},
+
+    {label: "thing2",
+	completed: false},
+
+    {label: "thing3",
+	completed: true}
+];
+
+todo.filter(function prepForFilterForActiveTodo(todo) {
+    // active todo> completed: false
+    // but filter method only filters true
+    // therefore, flip it !todo.completed >> !false > true
+	return todo.completed;
+}); 
+// output: 2 objects with true has been filtered out 
+
+7) Under Note: 2- See what `this` is without using bind.
+
+- pick #toggle-all to experiment 
+
+create funtion under bindEvents:
+	// this will show what bind.this is set to.
+	      function whatIsThis(){
+        console.log(this);
+      }
+
+- first try with '#toggle-all' 
+original:
+$('#toggle-all').on('change', this.toggleAll.bind(this));
+
+change to:
+$('#toggle-all').on('change', whatIsThis);
+
+once you go to app and click 'toggle-all' button
+you will see the output on the console
+<input id="toggle-all" type="checkbox">
+which means this is pointing to '#toggle-all'
+
+However, for our use, we want to bind this to App object.  Therefore, 
+$('#toggle-all').on('change', this.toggleAll.bind(this));  // this points to App objt
+
+- !Note the syntax for .on to bind just pass in the function definition (whatIsthis) with no ().  Syntax is NOT function() but just function definition (such as whatIsThis)
+$('#toggle-all').on('change', whatIsThis);
+
+- ( ) read about .call() 
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call
+
+https://www.w3schools.com/js/js_function_call.asp
+
+8) learn about method chaining
+      $('#todo-list')
+				.on('change', '.toggle', this.toggle.bind(this))
+				.on('dblclick', 'label', this.edit.bind(this))
+				.on('keyup', '.edit', this.editKeyup.bind(this))
+				.on('focusout', '.edit', this.update.bind(this))
+				.on('click', '.destroy', this.destroy.bind(this));
+
+- play in console:
