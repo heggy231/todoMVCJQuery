@@ -182,6 +182,10 @@ jQuery(function ($) {
 			// this is method chaining $input.val($input.val()) and $input.focus();
 			$input.val($input.val()).focus();
 		},
+
+		// to go thru this in debugger dbclick input field to go 
+		// into editing mode, then hit any key ex: 'a' to trigger 
+		// editkeyup evnt
 		editKeyup: function (e) {
 			if (e.which === ENTER_KEY) {
 				e.target.blur();
