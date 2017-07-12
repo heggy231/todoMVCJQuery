@@ -165,8 +165,21 @@ jQuery(function ($) {
 			this.todos[i].completed = !this.todos[i].completed;
 			this.render();
 		},
+		// this method should be re-named switching to editing mode style
 		edit: function (e) {
+			// e.target where user clicked on with closest ancestor li
+			// add css class 'editing' to 'li', from li, .find class of '.edit'
+			// it gives edit box the different look for editing mode style
 			var $input = $(e.target).closest('li').addClass('editing').find('.edit');
+			// parse $input.val($input.val()).focus() for ez understanding
+			// it will grab $input and put focus on it (cursor in the input box)
+			// however, the cursor is at the beginning of the input
+			// if you comment out $input.focus(); you can see no cursor inside the input box
+			// jQuery hack to make the cursor to the back 
+			// $input.val($input.val()); 
+			// give focus inside the input box
+			// $input.focus();
+			// this is method chaining $input.val($input.val()) and $input.focus();
 			$input.val($input.val()).focus();
 		},
 		editKeyup: function (e) {
