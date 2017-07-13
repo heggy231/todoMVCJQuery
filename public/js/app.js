@@ -121,23 +121,28 @@ jQuery(function ($) {
 		},
 		// accepts an element from inside the `.item` div and
 		// returns the corresponding index in the `todos` array
+		// https://watchandcode.com/courses/77710/lectures/1134202 (48:34)
+		// indexFromEl (el) is button.destroy
+		// in PJS https://github.com/heggy231/todoList/blob/master/version10.js
+		// assigning each todo with id of its position (i) 
+    // todoLi.id = i;
 		indexFromEl: function (el) { // when press destroy el = button.destroy
-      // the delete x nested inside of 'li', find .data.id (value of id)
+      // button.destroy is nested inside of 'li', find .data.id (value of id)
       // index == position of i
-      // $(el) wakes up jQuery elements methods (jQuery .closest)
+      // $(el) is jQuery elements methods (jQuery .closest)
 			var id = $(el).closest('li').data('id'); // id is really long string
 			var todos = this.todos;
 			var i = todos.length;
       
     // while i > 0; first i = todos.length, then it will decrease by 1
-    // first i = length then i-- decrease post decrement, operator process
-    // after while stmt process i value then i gets decreased by 1
+		// first i = todo.length into while loop, but while first see this initial 
+		// after while stmt process i value then i gets decreased by 1 (i-- post decr)
     // https://youtu.be/rYVy-bUWcXQ
     // pre decrement vs post decrement while loop video hint
 			while (i--) {
-        // ith todo element's id match id that you have e.target
+        // ith todo element's id match ith element of id of e.target
 				if (todos[i].id === id) {
-          // to delete you need position of the id of the array
+          // position of the id of the array is i not id
 					return i;
 				}
 			}
@@ -151,6 +156,7 @@ jQuery(function ($) {
 			}
 
 			this.todos.push({
+				// to understand uuid() copy whole function
 				id: util.uuid(),
 				title: val,
 				completed: false
@@ -187,30 +193,57 @@ jQuery(function ($) {
 		// into editing mode, then hit any key ex: 'a' to trigger 
 		// editkeyup evnt
 		editKeyup: function (e) {
+			// e.which is key you pressed = enterkey then blur
+			// pressing enter key means user likes to save data
+			// e.which (a = 35) != enterKey (13)
 			if (e.which === ENTER_KEY) {
+				// .blur() takes you out of input
 				e.target.blur();
 			}
-
+			// check if the key you pressed(e.which) is esc?
+			// pressing esc means user doesn't want to save data
 			if (e.which === ESCAPE_KEY) {
+				// we are assigning abort: true
+				// +(this info is applied inside of update method)
 				$(e.target).data('abort', true).blur();
 			}
 		},
+		// update gets triggerred 
+		// under editing mode > click outside to loose focus
+		// .on('focusout', '.edit', this.update.bind(this))
+		// strongly urge to run through debugger on update.
+		// debugger shows everything
 		update: function (e) {
-			var el = e.target;
+			// input field where user clicked on
+			var el = e.target; // debugger tells el= input.edit
+			// wrap el with jQuery element
 			var $el = $(el);
+			// get value by trimming off all the white space
 			var val = $el.val().trim();
 
+			// no value > user prob want to delete
+			// if unsure if(!val) will be true or not try Boolean(!"") in console
 			if (!val) {
+				// remember destroy method find the id > its position of array i
 				this.destroy(e);
 				return;
 			}
 
+			// only runs when esc key is pressed from editKeyup method
+			// $(e.target).data('abort', true) > this sets data 'abort': true 
+			// when esc key is pressed inside edit mode abort sets false
 			if ($el.data('abort')) {
+				// set the element data back to original state abort: false
 				$el.data('abort', false);
+			// any key other than esc key > this code runs
 			} else {
+			// here we will set the data since esc wasn't pressed
+			// indexFromEl(el) returns i position set to new value
+			// title (key property name) : val (value) pair
+			// this.todo[i].title = val sets property key = value
 				this.todos[this.indexFromEl(el)].title = val;
 			}
-
+			// when this.render runs it saves data and gets out of edit mode
 			this.render();
 		},
     // when user press x delete function runs, e stands event

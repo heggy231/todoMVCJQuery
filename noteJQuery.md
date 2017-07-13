@@ -248,5 +248,38 @@ myFakeElement
 						Running .on with rajeev
 
 
-8) Day 3
-App.create()
+9) Day 3
+
+- play in console to understand $($0).data(key,value)
+- Remember, $0 means selected element
+
+- $($0).data() is jQuery method that enables you to save arbitrary data on elements
+	$($0) // $0 is element selected <ul id="todo-list"> and then wrap it up with jQuery element
+        // either $($0) or jQuery($0)
+	var heggyElement = $($0); // this sets heggyElement as jQuery element
+	heggyElement // call heggyElement
+
+	// output: [ul#todo-list, context: ul#todo-list] // this is jQuery wrapped element
+
+	heggyElement.data('name', 'frankie'); // set heggyElement with data name: frankie
+	// output: [ul#todo-list, context: ul#todo-list]
+
+	heggyElement.data('name'); // give me back frankie
+
+- In summary .data() is jQuery method that save arbitrary data on elements
+- now going back we look at editKeyup method;
+	// we are assigning abort: true (this is applied inside of update method)
+		$(e.target).data('abort', true).blur();
+
+10) update method has 3 different path
+https://watchandcode.com/courses/77710/lectures/1232964 day 3 (43:21)
+- First, input.val nothing
+
+- Second, .data('abort', true) from editKeyup method abort to be true
+
+- Third, else .data('abort', false) from editKeyup method abort to be false which is the original state of the .data(key,value)
+
+Summary, update method is codependent of editKeyup method (both method needs tobe study at the same time)
+
+11) uuid play time
+if code looks complex just copy paste in console
