@@ -65,6 +65,7 @@ jQuery(function ($) {
 				.on('click', '.destroy', this.destroy.bind(this));
 		},
 		render: function () {
+			// footer has different filters all, active, completed
 			var todos = this.getFilteredTodos();
 			$('#todo-list').html(this.todoTemplate(todos));
 			$('#main').toggle(todos.length > 0);

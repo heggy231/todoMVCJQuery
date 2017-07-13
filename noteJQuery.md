@@ -305,3 +305,8 @@ uuid();
 
 // output: "52eb4800-5cf2-4cc9-bf37-518d6e376f47" same structure 
 // with random string with dashes inbtwn
+
+(12) Day 4 Templating
+https://watchandcode.com/courses/77710/lectures/1284592
+
+- render method 
