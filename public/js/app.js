@@ -8,7 +8,8 @@ jQuery(function ($) {
 
 	var ENTER_KEY = 13;
 	var ESCAPE_KEY = 27;
-  
+	
+	// generating unique id using bit manipulations
 	var util = {
 		uuid: function () {
 			/*jshint bitwise:false */
@@ -156,7 +157,8 @@ jQuery(function ($) {
 			}
 
 			this.todos.push({
-				// to understand uuid() copy whole function
+				// to understand uuid() copy whole function into console
+				// in essence uuid() creates unique name for each element in array
 				id: util.uuid(),
 				title: val,
 				completed: false

@@ -271,8 +271,9 @@ myFakeElement
 	// we are assigning abort: true (this is applied inside of update method)
 		$(e.target).data('abort', true).blur();
 
-10) update method has 3 different path
+(10) update method has 3 different path
 https://watchandcode.com/courses/77710/lectures/1232964 day 3 (43:21)
+
 - First, input.val nothing
 
 - Second, .data('abort', true) from editKeyup method abort to be true
@@ -281,5 +282,26 @@ https://watchandcode.com/courses/77710/lectures/1232964 day 3 (43:21)
 
 Summary, update method is codependent of editKeyup method (both method needs tobe study at the same time)
 
-11) uuid play time
-if code looks complex just copy paste in console
+(11) uuid play time:
+- if code looks complex just copy paste in console
+- Remember to name it first before running
+
+function uuid () {
+			/*jshint bitwise:false */
+			var i, random;
+			var uuid = '';
+
+			for (i = 0; i < 32; i++) {
+				random = Math.random() * 16 | 0;
+				if (i === 8 || i === 12 || i === 16 || i === 20) {
+					uuid += '-';
+				}
+				uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random)).toString(16);
+			}
+
+			return uuid;
+		}
+uuid();
+
+// output: "52eb4800-5cf2-4cc9-bf37-518d6e376f47" same structure 
+// with random string with dashes inbtwn
