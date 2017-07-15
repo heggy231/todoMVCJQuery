@@ -74,9 +74,13 @@ jQuery(function ($) {
 			$('#todo-list').html(this.todoTemplate(todos));
 			// toggle boolean hides (F)/shows (T) element, visibility method
 			$('#main').toggle(todos.length > 0);
+			// this.getActiveTodos().length === 0 passes than 'checked' is applied to
+			// #toggle-all; it makes sense to show checked when there is no active todo
 			$('#toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
+			// each time render() is called focus on #new-todo input text area
 			$('#new-todo').focus();
+			// browser based database
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
