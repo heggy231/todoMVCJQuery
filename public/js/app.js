@@ -66,8 +66,13 @@ jQuery(function ($) {
 		},
 		render: function () {
 			// footer has different filters all, active, completed
+			// getFilteredTodos() returns arrays of todos depend on which filter
+			// we have applied (all/active/completed)
 			var todos = this.getFilteredTodos();
+			// grab ul id #todo-list, .html() jQuery get return content (even html markup)
+			// using handlebars and templating to insert list items todos
 			$('#todo-list').html(this.todoTemplate(todos));
+			// toggle boolean hides (F)/shows (T) element, visibility method
 			$('#main').toggle(todos.length > 0);
 			$('#toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();

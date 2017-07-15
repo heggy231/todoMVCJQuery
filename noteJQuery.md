@@ -310,3 +310,4 @@ uuid();
 https://watchandcode.com/courses/77710/lectures/1284592
 
 - render method 
+Looking over whole app find where render() is called.
