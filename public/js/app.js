@@ -76,6 +76,7 @@ jQuery(function ($) {
 			$('#main').toggle(todos.length > 0);
 			// this.getActiveTodos().length === 0 passes than 'checked' is applied to
 			// #toggle-all; it makes sense to show checked when there is no active todo
+			// .prop will set 'checked' depends second argmt true/false
 			$('#toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
 			// each time render() is called focus on #new-todo input text area
@@ -84,15 +85,27 @@ jQuery(function ($) {
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
+			// number of todos
 			var todoCount = this.todos.length;
+			// number of activetodo
 			var activeTodoCount = this.getActiveTodos().length;
+			// grabs footerTemplate which is html template for botton footer (all/active..)
+			// Now fetch right data for each button on template 1item left/all/active
 			var template = this.footerTemplate({
+				// ex: 1 item left 
 				activeTodoCount: activeTodoCount,
+				// should it be item or multiple items depends on how many todos there are
+				// this is done with pluralize method on util obj
 				activeTodoWord: util.pluralize(activeTodoCount, 'item'),
+				// completedTodos figures out how many there are completedTodos
+				// it has. any numbers (true) than show "Clear completed"
 				completedTodos: todoCount - activeTodoCount,
+				// show box around selected footer item
 				filter: this.filter
 			});
 
+			// this displays footer method only when todo exists (todoCount > 0)
+			// injecting template (footerTemplate method) into #footer element in html
 			$('#footer').toggle(todoCount > 0).html(template);
 		},
 		toggleAll: function (e) {

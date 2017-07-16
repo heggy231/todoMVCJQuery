@@ -311,3 +311,22 @@ https://watchandcode.com/courses/77710/lectures/1284592
 
 - render method 
 Looking over whole app find where render() is called.
+
+(13) Day 4 Handlebars
+- play in console first using simple string turn it into handlebars
+// PreReq read: https://github.com/wycats/handlebars.js/
+// First, go to http://tryhandlebarsjs.com/
+// Second, type in console Handlebars
+// Output: d {helpers: Object, partials: Object, decorators: Object, __esModule: true, HandlebarsEnvironment: function…}
+
+// <div> {{title}} </div>
+// {title: 'I am the one'}
+// we want word to show up inside html element replacing mustache {{title}}
+// <div> I am the one </div>
+
+var htmlTemplate = '<div>{{title}}</div>';
+// turn string into handlebars template
+// set a new var to Handlars' compile method pass in handlebars template (htmlTemplate)
+var handlebarsTemplate = Handlebars.compile(htmlTemplate);
+handlebarsTemplate({title: 'I am the one'}); // make this into html element
+// output: <div> I am the one </div>
