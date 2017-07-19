@@ -178,22 +178,31 @@ jQuery(function ($) {
 			var $input = $(e.target);
 			// .val() > get value of input
 			// .trim() > trim all the white space
+			// in debugger, you can verify that local val equals user's input
 			var val = $input.val().trim();
 
+			// e.which is key on keyboard in number (every key has number)
+			// if value pressed is not enter key OR no value
 			if (e.which !== ENTER_KEY || !val) {
+				// get out of create function since user doesn't
+				// want to save data no enter or no value (!val) inside
 				return;
 			}
 
+			// user pressed enter
 			this.todos.push({
 				// to understand uuid() copy whole function into console
 				// in essence uuid() creates unique name for each element in array
 				id: util.uuid(),
+				// new obj is created under scope > local: this.todos.title
 				title: val,
 				completed: false
 			});
 
+			// it clears val input field
 			$input.val('');
 
+			// new item gets display bottom of todoList
 			this.render();
 		},
 		toggle: function (e) {
