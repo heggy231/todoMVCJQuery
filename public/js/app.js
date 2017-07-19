@@ -171,8 +171,13 @@ jQuery(function ($) {
 				}
 			}
 		},
+		// create method gets called on keyUp event when key is pressed
+		// and let go
 		create: function (e) {
+			// input field get wrapped in jQuery elemen
 			var $input = $(e.target);
+			// .val() > get value of input
+			// .trim() > trim all the white space
 			var val = $input.val().trim();
 
 			if (e.which !== ENTER_KEY || !val) {

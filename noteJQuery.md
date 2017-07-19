@@ -330,3 +330,7 @@ var htmlTemplate = '<div>{{title}}</div>';
 var handlebarsTemplate = Handlebars.compile(htmlTemplate);
 handlebarsTemplate({title: 'I am the one'}); // make this into html element
 // output: <div> I am the one </div>
+
+## trim take out all the white spaces
+'    d    '.trim()
+// output: "d"
