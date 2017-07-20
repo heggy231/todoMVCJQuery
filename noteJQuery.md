@@ -338,6 +338,48 @@ var data = {todos: [{title: 'First'}, {title: 'Second'}, {title: 'Third'}]};
 // handlebar's for loop over every item
 <ul> {{#todos}} <li> {{title}} </li> {{/todos}} </ul>
 
+// we want to iterate over item in array using this keyword
+var data = [{title: 'First'}, {title: 'Second'}, {title: 'Third'}];
+// handlebar's for loop over every item but this time we refer todos as this
+var htmlTemplate = '<ul> {{#this}} <li> {{title}} </li> {{/this}} </ul>';
+var handlebarsTemplate = Handlebars.compile(htmlTemplate);
+
+handlebarsTemplate(data);
+
+"<ul>  <li> First </li>  <li> Second </li>  <li> Third </li>  </ul>"
+
+- if stmt logic in template
+useCase: applying complicated logic in template which we may use conditions in JS to conditionally show or hide certain html elements
+
+var handlebarsTemplate = Handlebars.compile(htmlTemplate);
+handlebarsTemplate({show: true}); // expect to see <div> TRUE </div>
+// output: "<div>  TRUE  </div>"
+
+// 2nd case, pass in show is false
+handlebarsTemplate({show: false}); // returns empty <div>  </div>
+// output: "<div>  </div>"
+
+- ex of handlebar use in our app 
+# under App.init() $('#todo-template').html() is handlebar template
+$('#todo-template').html() 
+
+// output: string of html which is html template
+"
+			{{#this}}
+			<li {{#if completed}}class="completed"{{/if}} data-id="{{id}}">
+				<div class="view">
+					<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
+					<label>{{title}}</label>
+					<button class="destroy"></button>
+				</div>
+				<input class="edit" value="{{title}}">
+			</li>
+		{{/this}}
+"
+// This is raw html string and we need to compile it as Handlebars
+
+Handlebars.compile( $('#todo-template').html() );
+
 ## trim take out all the white spaces
 '    d    '.trim()
 // output: "d"

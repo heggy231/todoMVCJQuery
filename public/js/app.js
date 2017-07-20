@@ -73,6 +73,8 @@ jQuery(function ($) {
 			var todos = this.getFilteredTodos();
 			// grab ul id #todo-list, .html() jQuery get return content (even html markup)
 			// using handlebars and templating to insert list items todos
+			// this.todoTemplate() is handlebars template, todos is data we want to 
+			// render
 			$('#todo-list').html(this.todoTemplate(todos));
 			// toggle boolean hides (F)/shows (T) element, visibility method
 			// show main part of app when there is some todos
