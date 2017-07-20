@@ -331,6 +331,13 @@ var handlebarsTemplate = Handlebars.compile(htmlTemplate);
 handlebarsTemplate({title: 'I am the one'}); // make this into html element
 // output: <div> I am the one </div>
 
+- for loop inside of handlebar
+
+// we want to iterate over item in array
+var data = {todos: [{title: 'First'}, {title: 'Second'}, {title: 'Third'}]};
+// handlebar's for loop over every item
+<ul> {{#todos}} <li> {{title}} </li> {{/todos}} </ul>
+
 ## trim take out all the white spaces
 '    d    '.trim()
 // output: "d"

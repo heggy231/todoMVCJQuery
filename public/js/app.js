@@ -59,11 +59,13 @@ jQuery(function ($) {
 			$('#footer').on('click', '#clear-completed', this.destroyCompleted.bind(this));
 			$('#todo-list')
 				.on('change', '.toggle', this.toggle.bind(this))
+				// textTodo input field is label when dbclick run edit method
 				.on('dblclick', 'label', this.edit.bind(this))
 				.on('keyup', '.edit', this.editKeyup.bind(this))
 				.on('focusout', '.edit', this.update.bind(this))
 				.on('click', '.destroy', this.destroy.bind(this));
 		},
+		// render method shows up where data gets changed in some way
 		render: function () {
 			// footer has different filters all, active, completed
 			// getFilteredTodos() returns arrays of todos depend on which filter
@@ -73,6 +75,8 @@ jQuery(function ($) {
 			// using handlebars and templating to insert list items todos
 			$('#todo-list').html(this.todoTemplate(todos));
 			// toggle boolean hides (F)/shows (T) element, visibility method
+			// show main part of app when there is some todos
+			// main includes toggle-all and todo-list elements
 			$('#main').toggle(todos.length > 0);
 			// this.getActiveTodos().length === 0 passes than 'checked' is applied to
 			// #toggle-all; it makes sense to show checked when there is no active todo
@@ -100,7 +104,7 @@ jQuery(function ($) {
 				// completedTodos figures out how many there are completedTodos
 				// it has. any numbers (true) than show "Clear completed"
 				completedTodos: todoCount - activeTodoCount,
-				// show box around selected footer item
+				// show outline around selected footer's filtered item
 				filter: this.filter
 			});
 
@@ -210,9 +214,9 @@ jQuery(function ($) {
 			this.todos[i].completed = !this.todos[i].completed;
 			this.render();
 		},
-		// this method should be re-named switching to editing mode style
+		// this method should be re-named switch to "editingModeLook"
 		edit: function (e) {
-			// e.target where user clicked on with closest ancestor li
+			// e.target where user clicked on with closest ancestor li that encloses all
 			// add css class 'editing' to 'li', from li, .find class of '.edit'
 			// it gives edit box the different look for editing mode style
 			var $input = $(e.target).closest('li').addClass('editing').find('.edit');
@@ -222,8 +226,9 @@ jQuery(function ($) {
 			// if you comment out $input.focus(); you can see no cursor inside the input box
 			// jQuery hack to make the cursor to the back 
 			// $input.val($input.val()); 
-			// give focus inside the input box
-			// $input.focus();
+
+
+			// $input.focus(); 			// put the cursor inside the input box
 			// this is method chaining $input.val($input.val()) and $input.focus();
 			$input.val($input.val()).focus();
 		},
@@ -236,13 +241,14 @@ jQuery(function ($) {
 			// pressing enter key means user likes to save data
 			// e.which (a = 35) != enterKey (13)
 			if (e.which === ENTER_KEY) {
-				// .blur() takes you out of input
+				// .blur() takes you out of focus input
+				// (takes you out of current edit mode)
 				e.target.blur();
 			}
 			// check if the key you pressed(e.which) is esc?
 			// pressing esc means user doesn't want to save data
 			if (e.which === ESCAPE_KEY) {
-				// we are assigning abort: true
+				// we are assigning abort key : true value
 				// +(this info is applied inside of update method)
 				$(e.target).data('abort', true).blur();
 			}
@@ -268,7 +274,7 @@ jQuery(function ($) {
 				return;
 			}
 
-			// only runs when esc key is pressed from editKeyup method
+			// only runs when esc key is pressed from editKeyup method 'abort is true
 			// $(e.target).data('abort', true) > this sets data 'abort': true 
 			// when esc key is pressed inside edit mode abort sets false
 			if ($el.data('abort')) {
