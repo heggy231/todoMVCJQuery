@@ -380,6 +380,27 @@ $('#todo-template').html()
 
 Handlebars.compile( $('#todo-template').html() );
 
+- under index.html you can see how we deliver a template to the browser
+refer to: http://handlebarsjs.com/
+
+
+		<!-- this delivers a template to the browser in a script tag -->
+		<script id="todo-template" type="text/x-handlebars-template">
+			{{#this}}
+			<!-- if conditional true; apply class = "completed".  this is why we see different look
+			once todo has been completed. inside of script tag is the template-->
+			<li {{#if completed}}class="completed"{{/if}} data-id="{{id}}">
+				<div class="view">
+					<!-- if completed is true; then checkbox be checked.  This happens in render method -->
+					<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
+					<label>{{title}}</label>
+					<button class="destroy"></button>
+				</div>
+				<input class="edit" value="{{title}}">
+			</li>
+		{{/this}}
+		</script>
+
 ## trim take out all the white spaces
 '    d    '.trim()
 // output: "d"

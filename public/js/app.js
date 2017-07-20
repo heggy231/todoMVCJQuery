@@ -70,11 +70,13 @@ jQuery(function ($) {
 			// footer has different filters all, active, completed
 			// getFilteredTodos() returns arrays of todos depend on which filter
 			// we have applied (all/active/completed)
+			// this.getFilteredTodos() is an array and on handlebar you can use 'this'
+			
 			var todos = this.getFilteredTodos();
 			// grab ul id #todo-list, .html() jQuery get return content (even html markup)
 			// using handlebars and templating to insert list items todos
-			// this.todoTemplate() is handlebars template, todos is data we want to 
-			// render
+			// this.todoTemplate() is handlebars template, todos is data we want to render
+			// todos is an array that is why we may refer it as 'this'
 			$('#todo-list').html(this.todoTemplate(todos));
 			// toggle boolean hides (F)/shows (T) element, visibility method
 			// show main part of app when there is some todos

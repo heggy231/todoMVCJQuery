@@ -26,10 +26,14 @@
 			<p>Created by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
 			<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
 		</footer>
+		<!-- this delivers a handlebar template to the browser; inside of script tag -->
 		<script id="todo-template" type="text/x-handlebars-template">
 			{{#this}}
+			<!-- if conditional true; apply class = "completed".  this is why we see different look
+			once todo has been completed -->
 			<li {{#if completed}}class="completed"{{/if}} data-id="{{id}}">
 				<div class="view">
+					<!-- if completed is true; then checkbox be checked.  This happens in render method -->
 					<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
 					<label>{{title}}</label>
 					<button class="destroy"></button>
@@ -53,6 +57,7 @@
 			</ul>
 			{{#if completedTodos}}<button id="clear-completed">Clear completed</button>{{/if}}
 		</script>
+		<!-- End of handlebar insertion -->
 		<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
 		<script src="js/director.js"></script>
