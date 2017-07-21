@@ -331,14 +331,16 @@ var handlebarsTemplate = Handlebars.compile(htmlTemplate);
 handlebarsTemplate({title: 'I am the one'}); // make this into html element
 // output: <div> I am the one </div>
 
-- for loop inside of handlebar
+- forLoop inside of handlebar
 
 // we want to iterate over item in array
 var data = {todos: [{title: 'First'}, {title: 'Second'}, {title: 'Third'}]};
 // handlebar's for loop over every item
+// put obj inside with # {{#todos}} to end forLoop {{/todos}}
 <ul> {{#todos}} <li> {{title}} </li> {{/todos}} </ul>
 
-// we want to iterate over item in array using this keyword
+// we want to iterate over item in array using 'this' keyword
+// update your array with no property but simple array
 var data = [{title: 'First'}, {title: 'Second'}, {title: 'Third'}];
 // handlebar's for loop over every item but this time we refer todos as this
 var htmlTemplate = '<ul> {{#this}} <li> {{title}} </li> {{/this}} </ul>';

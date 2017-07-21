@@ -28,12 +28,14 @@
 		</footer>
 		<!-- this delivers a handlebar template to the browser; inside of script tag -->
 		<script id="todo-template" type="text/x-handlebars-template">
+			<!-- this refers to the array of todo, var todos = this.getFilteredTodos(); -->
 			{{#this}}
-			<!-- if conditional true; apply class = "completed".  this is why we see different look
+			<!-- if conditional true; add class = "completed".  this is why we see different look
 			once todo has been completed -->
+			<!-- notice we have {{completed}}, {{id}}, {{title}} properties -->
 			<li {{#if completed}}class="completed"{{/if}} data-id="{{id}}">
 				<div class="view">
-					<!-- if completed is true; then checkbox be checked.  This happens in render method -->
+					<!-- if completed is true; then checkbox gets checked called from render method -->
 					<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
 					<label>{{title}}</label>
 					<button class="destroy"></button>

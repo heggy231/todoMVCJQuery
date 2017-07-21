@@ -1,7 +1,9 @@
 /*global jQuery, Handlebars, Router */
 jQuery(function ($) {
 	'use strict';
-
+	
+	// we are adding Handlebars helper to create
+	// custom handlebar. eq stands for equality
 	Handlebars.registerHelper('eq', function (a, b, options) {
 		return a === b ? options.fn(this) : options.inverse(this);
 	});
@@ -71,7 +73,7 @@ jQuery(function ($) {
 			// getFilteredTodos() returns arrays of todos depend on which filter
 			// we have applied (all/active/completed)
 			// this.getFilteredTodos() is an array and on handlebar you can use 'this'
-			
+
 			var todos = this.getFilteredTodos();
 			// grab ul id #todo-list, .html() jQuery get return content (even html markup)
 			// using handlebars and templating to insert list items todos
@@ -102,6 +104,7 @@ jQuery(function ($) {
 			var template = this.footerTemplate({
 				// ex: 1 item left 
 				activeTodoCount: activeTodoCount,
+				// ex: item or items 
 				// should it be item or multiple items depends on how many todos there are
 				// this is done with pluralize method on util obj
 				activeTodoWord: util.pluralize(activeTodoCount, 'item'),
