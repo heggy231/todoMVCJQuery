@@ -2,18 +2,27 @@
 jQuery(function ($) {
 	'use strict';
 	
-	// To run debugger on .registerHelper just add a another item with break point .registerHelper()
+	// To run debugger on .registerHelper just add a another item 
+  // with break point .registerHelper()
 	// we are adding Handlebars helper to create
 	// custom handlebar. eq stands for equality
 	// options let you have two templates depend on situations
 	Handlebars.registerHelper('eq', function (a, b, options) {
-		// a is equal to b then run option.fn() and option.inverse() are HandlebarsTemplates which pass 'this' (data object same obj we passed inside of .footerTemplate(data) in renderFooter() method)
+		// a is equal to b then run option.fn() and option.inverse() are
+    // HandlebarsTemplates which pass 'this' (data object same obj
+    // we passed inside of .footerTemplate(data) in renderFooter() method)
 		// if a === b pass, run .fn(this) {{else}} run .inverse()
-		// debugger > hover over 'this' you can see it has activeTodoCount, activeTodoWord, completedTodos, filter
-		// same as the dataObj passed into renderFooter's this.footerTemplate(dataObj)
-		// notice that inside index.html there is no {{else}} therefore options.inverse() is not used
-		// ex) index.html under #footer-template > note <a {{#eq filter 'all'}}class="selected"{{/eq}} doesn't have {{else}}
-		// if options.inverse() was called there would have been {{else}} inside of <a {{#eq filter 'all'}}class="selected"{{else}}show this instead{{/eq}}
+		// debugger > hover over 'this' you can see it has 
+    // activeTodoCount, activeTodoWord, completedTodos, filter
+		// same as the dataObj passed into 
+    // renderFooter's this.footerTemplate(dataObj)
+		// notice that inside index.html 
+    // there is no {{else}} therefore options.inverse() is not used
+		// ex) index.html under #footer-template > 
+    // note: <a {{#eq filter 'all'}}class="selected"{{/eq}} doesn't have {{else}}
+		// if options.inverse() was called there 
+    // would have been {{else}} inside of
+    // <a {{#eq filter 'all'}}class="selected"{{else}}show this instead{{/eq}}
 		return a === b ? options.fn(this) : options.inverse(this);
 	});
 
@@ -42,9 +51,16 @@ jQuery(function ($) {
 		// ternary operator is like if stmt
 		pluralize: function (count, word) {
 			// count === 1 ? word : word + 's' is example of ternary operator
-			// condition ? expr1 : expr2  // if conditional true; output expr1; otherwise, output expr2
+			// condition ? expr1 : expr2  // if conditional true; output expr1;
+      // otherwise, output expr2
 			return count === 1 ? word : word + 's';
 		},
+		// check out how localStorage is configured in your todos app
+		// console> localStorage
+		// {todos-jquery: "[{"id":"37d41f03-....]", length: 1}
+		// note that under .render() method saves [todos] inside todos-jquery
+		// ex: util.store('todos-jquery', this.todos);
+		
 		store: function (namespace, data) {
 			if (arguments.length > 1) {
 				return localStorage.setItem(namespace, JSON.stringify(data));
@@ -58,7 +74,8 @@ jQuery(function ($) {
 	var App = {
 		init: function () {
 			// util.store method is called with 1 argument (string)
-			// util.store('todos-jquery') is to GET data from local storage named 'todos-jquery'
+			// util.store('todos-jquery') is to GET data
+      // from local storage named 'todos-jquery'
 			//  then use data to set up [todos] array when app starts up
 			// The other way .store method is used is under render() to SAVE data
 			this.todos = util.store('todos-jquery');
@@ -112,14 +129,16 @@ jQuery(function ($) {
 			
 			// for toggle all sets .property change 'checked' or unchecked depend on 
 			// this.getActiveTodos().length === 0 is true/false
-			// #toggle-all; when there is no active todo it is checked since nothing to more to check
+			// #toggle-all; when there is no active todo it is checked
+      // since nothing to more to check
 			$('#toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
 
 			// each time render() is called focus on #new-todo input text area
 			$('#new-todo').focus();
 
-			// Browser based simple database so it remembers your last session when revisit the pg
+			// Browser based simple database so it remembers 
+      // your last session when revisit the pg
 			// util.store is called with 2 argumtne ('string', array)
 			// 	to SAVE [todos] in 'todos-jquery'
 			// note: the other way to use .store method under init() method to GET data
@@ -132,7 +151,8 @@ jQuery(function ($) {
 			var activeTodoCount = this.getActiveTodos().length;
 			//  what is passed inside of .footerTemplate is data obj
 			// grabs footerTemplate which is html template for footer (all/active..)
-			// Now fetch right data for each button on template '1 item left'/'all'/'active'/'completed'/'clear completed'
+			// Now fetch right data for each button on template
+      // '1 item left'/'all'/'active'/'completed'/'clear completed'
 			var template = this.footerTemplate({
 				// ex: 1 item left 
 				activeTodoCount: activeTodoCount,
@@ -204,7 +224,8 @@ jQuery(function ($) {
       
     // while i > 0; first i = todos.length, then it will decrease by 1
 		// first i = todo.length into while loop, but while first see this initial 
-		// after while stmt process i value then i gets decreased by 1 (i-- post decr)
+		// after while stmt process i value then i gets decreased by 1
+      // (i-- post decr)
     // https://youtu.be/rYVy-bUWcXQ
     // pre decrement vs post decrement while loop video hint
 			while (i--) {
@@ -263,7 +284,8 @@ jQuery(function ($) {
 			// parse $input.val($input.val()).focus() for ez understanding
 			// it will grab $input and put focus on it (cursor in the input box)
 			// however, the cursor is at the beginning of the input
-			// if you comment out $input.focus(); you can see no cursor inside the input box
+			// if you comment out $input.focus()
+      // you can see no cursor inside the input box
 			// jQuery hack to make the cursor to the back 
 			// $input.val($input.val()); 
 

@@ -507,3 +507,5 @@ function pluralize (count, word) {
 
 pluralize(0, 'item'); // output: items since count != 1 (word+'s')
 pluralize(1, 'item'); // output: item count === 1
+
+- Note in video, Resources now is called Application
