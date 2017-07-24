@@ -473,7 +473,7 @@ you can live code see the change reflected on website
 
 - ex of live coding on console that doesnt' effect the code at large in real time.
 	# Ref on Handlebars.registerHelper (http://handlebarsjs.com/block_helpers.html)
-
+ (https://watchandcode.com/courses/77710/lectures/1284592 at 40min 28 sec)
 - under element tab: select
 	<script id="footer-template" type="text/x-handlebars-template">
 
@@ -490,6 +490,20 @@ Handlebars.registerHelper('eq', function (a, b, options) {
 	return a === b ? options.fn(this) : options.inverse(this);
 }
 
+Use cases : REACT, angularJS, emberJS all use similar template libraries such as this
+
+## Ternary operator
+
+From pluralize method we can understand ternary operator syntax
 
 
-## 
+// change pluralize method into function to try out what it does
+function pluralize (count, word) {
+
+	// count === 1 ? word : word + 's' is example of ternary operator
+	// condition ? expr1 : expr2  // if conditional true; output expr1 else, output expr2
+	return count === 1 ? word : word + 's';
+}
+
+pluralize(0, 'item'); // output: items since count != 1 (word+'s')
+pluralize(1, 'item'); // output: item count === 1

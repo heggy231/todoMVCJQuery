@@ -37,7 +37,12 @@ jQuery(function ($) {
 
 			return uuid;
 		},
+		// ex count is '1' word is 'item' one output: item
+		// ex count is '0 or anything but 1' output: item
+		// ternary operator is like if stmt
 		pluralize: function (count, word) {
+			// count === 1 ? word : word + 's' is example of ternary operator
+			// condition ? expr1 : expr2  // if conditional true; output expr1; otherwise, output expr2
 			return count === 1 ? word : word + 's';
 		},
 		store: function (namespace, data) {
@@ -52,7 +57,12 @@ jQuery(function ($) {
 
 	var App = {
 		init: function () {
+			// util.store method is called with 1 argument (string)
+			// util.store('todos-jquery') is to GET data from local storage named 'todos-jquery'
+			//  then use data to set up [todos] array when app starts up
+			// The other way .store method is used is under render() to SAVE data
 			this.todos = util.store('todos-jquery');
+			
 			// $('#todo-template').html() raw html string and compile it as Handlebars
 			// todoTemplate is Handlebars template, in render()
 			// todoTemplate(data) < gets the data
@@ -108,8 +118,11 @@ jQuery(function ($) {
 
 			// each time render() is called focus on #new-todo input text area
 			$('#new-todo').focus();
-			
-			// browser based simple database so it remembers your last session when revisit the pg
+
+			// Browser based simple database so it remembers your last session when revisit the pg
+			// util.store is called with 2 argumtne ('string', array)
+			// 	to SAVE [todos] in 'todos-jquery'
+			// note: the other way to use .store method under init() method to GET data
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
