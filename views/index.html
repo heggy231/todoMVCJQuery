@@ -29,13 +29,14 @@
 		<!-- this how HandlebarsTemplate is rendered in the browser; inside of script tag follow syntax -->
 		<script id="todo-template" type="text/x-handlebars-template">
 			<!-- this refers to the array of todo, var todos = this.getFilteredTodos(); -->
-			{{#this}}
-			<!-- if conditional true; add class = "completed".  this is why we see different look
+			<!-- begining of for loop: {{#this}}   Note ex: var htmlTemplate = '<ul> {{#this}} <li>{{title}}</li> {{/this}} </ul>';-->
+			 {{#this}}  
+			<!-- if conditional(completed) true; add class = "completed".  this is why we see different look
 			once todo has been completed -->
-			<!-- notice we have {{completed}}, {{id}}, {{title}} properties -->
+			<!-- notice we have {{completed}}, {{id}}, {{title}} properties se can access each item in array -->
 			<li {{#if completed}}class="completed"{{/if}} data-id="{{id}}">
 				<div class="view">
-					<!-- if completed is true; then checkbox gets checked called from render method -->
+					<!-- if todo items are completed is true; then checkbox gets checked called from render method -->
 					<input class="toggle" type="checkbox" {{#if completed}}checked{{/if}}>
 					<label>{{title}}</label>
 					<button class="destroy"></button>
@@ -48,6 +49,10 @@
 			<span id="todo-count"><strong>{{activeTodoCount}}</strong> {{activeTodoWord}} left</span>
 			<ul id="filters">
 				<li>
+					<!-- eq is custom Handlebar  
+					looking at filter property from renderFooter this.footerTemplate(data).  One of data passed in is filter: this.filter-->
+					<!-- look at filter property 'all'/'active'/'completed' -->
+					<!-- if filter prop is all (is all selected?) then have outline on it (apply class selected) -->
 					<a {{#eq filter 'all'}}class="selected"{{/eq}} href="#/all">All</a>
 				</li>
 				<li>

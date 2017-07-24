@@ -5,6 +5,8 @@ jQuery(function ($) {
 	// we are adding Handlebars helper to create
 	// custom handlebar. eq stands for equality
 	Handlebars.registerHelper('eq', function (a, b, options) {
+		// a is equal to b then run option.fn() and option.inverse() are HandlebarsTemplates which pass in this (data object)
+		// if a === b pass, run .fn(this) {{else}} run .inverse()
 		return a === b ? options.fn(this) : options.inverse(this);
 	});
 
@@ -104,7 +106,8 @@ jQuery(function ($) {
 			var todoCount = this.todos.length;
 			// number of activetodo
 			var activeTodoCount = this.getActiveTodos().length;
-			// grabs footerTemplate which is html template for botton footer (all/active..)
+			//  what is passed inside of .footerTemplate is data obj
+			// grabs footerTemplate which is html template for footer (all/active..)
 			// Now fetch right data for each button on template 1item left/all/active
 			var template = this.footerTemplate({
 				// ex: 1 item left 
@@ -117,6 +120,7 @@ jQuery(function ($) {
 				// it has. any numbers (true) than show "Clear completed"
 				completedTodos: todoCount - activeTodoCount,
 				// show outline around selected footer's filtered item
+				// eq customeMade HandlebarsTemplate is accessing filter property
 				filter: this.filter
 			});
 

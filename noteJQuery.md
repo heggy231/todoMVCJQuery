@@ -443,14 +443,19 @@ refer to: http://handlebarsjs.com/
 You can deliver a template to the browser by including it in a <script> tag.
 
 
-
+// id #entry-template so you can later refer to the HandlebarsTemplate
+// type = "text/x-handlebars-template"
 <script id="entry-template" type="text/x-handlebars-template">
+
+// inside <script>, we insert HTML, with embedded handlebars expressions.
+
   <div class="entry">
     <h1>{{title}}</h1>
     <div class="body">
       {{body}}
     </div>
   </div>
+
 </script>
 
 
