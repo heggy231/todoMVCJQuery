@@ -10,7 +10,10 @@ jQuery(function ($) {
 		// a is equal to b then run option.fn() and option.inverse() are HandlebarsTemplates which pass 'this' (data object same obj we passed inside of .footerTemplate(data) in renderFooter() method)
 		// if a === b pass, run .fn(this) {{else}} run .inverse()
 		// debugger > hover over 'this' you can see it has activeTodoCount, activeTodoWord, completedTodos, filter
-		// same as the data obj passed into 
+		// same as the dataObj passed into renderFooter's this.footerTemplate(dataObj)
+		// notice that inside index.html there is no {{else}} therefore options.inverse() is not used
+		// ex) index.html under #footer-template > note <a {{#eq filter 'all'}}class="selected"{{/eq}} doesn't have {{else}}
+		// if options.inverse() was called there would have been {{else}} inside of <a {{#eq filter 'all'}}class="selected"{{else}}show this instead{{/eq}}
 		return a === b ? options.fn(this) : options.inverse(this);
 	});
 
@@ -78,18 +81,20 @@ jQuery(function ($) {
 		},
 		// render method shows up where data gets changed in some way
 		render: function () {
+
 			// footer has different filters all, active, completed
 			// getFilteredTodos() returns arrays of todos depend on which filter
 			// we have applied (all/active/completed)
 			// this.getFilteredTodos() is an array and on handlebar you can use 'this'
-
 			var todos = this.getFilteredTodos();
+
 			// grab ul id #todo-list, .html() jQuery get return content (even html markup)
 			// using HandlebarsTemplate todo insert  todos
 			// todoTemplate(todos) is HandlebarsTemplate which gets todos as data
 			// its resulting .html() insert into elements that has #todo-list
 			// todos is an array that is why we may refer it as 'this'
 			$('#todo-list').html(this.todoTemplate(todos));
+
 			// toggle boolean hides (F)/shows (T) element, visibility method
 			// show main part of app when there is some todos
 			// main includes toggle-all and todo-list elements
@@ -100,8 +105,10 @@ jQuery(function ($) {
 			// #toggle-all; when there is no active todo it is checked since nothing to more to check
 			$('#toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
+
 			// each time render() is called focus on #new-todo input text area
 			$('#new-todo').focus();
+			
 			// browser based simple database so it remembers your last session when revisit the pg
 			util.store('todos-jquery', this.todos);
 		},
@@ -112,7 +119,7 @@ jQuery(function ($) {
 			var activeTodoCount = this.getActiveTodos().length;
 			//  what is passed inside of .footerTemplate is data obj
 			// grabs footerTemplate which is html template for footer (all/active..)
-			// Now fetch right data for each button on template 1item left/all/active
+			// Now fetch right data for each button on template '1 item left'/'all'/'active'/'completed'/'clear completed'
 			var template = this.footerTemplate({
 				// ex: 1 item left 
 				activeTodoCount: activeTodoCount,

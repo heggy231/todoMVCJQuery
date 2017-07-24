@@ -470,3 +470,26 @@ You can deliver a template to the browser by including it in a <script> tag.
 1. element tab: select <script id="footer-template" type="text/x-handlebars-template">
 2. left side you see '...' click on 'edit as HTML'
 you can live code see the change reflected on website
+
+- ex of live coding on console that doesnt' effect the code at large in real time.
+	# Ref on Handlebars.registerHelper (http://handlebarsjs.com/block_helpers.html)
+
+- under element tab: select
+	<script id="footer-template" type="text/x-handlebars-template">
+
+- click on '...' > 'Edit as HTML' 
+- under	<a {{#eq filter 'all' .... </a>
+- add {{else}} to demonstrate that if option b template was implemented
+
+- below is the final look
+	<a {{#eq filter 'all'}}class="selected"{{else}}Print This Instead{{/eq}} href="#/all">All</a>
+
+# Conclusion: since there is no {{else}} inside of our custom function #eq therefore we know options 'b' in Handlebars.registerHelper() is not used.
+
+Handlebars.registerHelper('eq', function (a, b, options) {
+	return a === b ? options.fn(this) : options.inverse(this);
+}
+
+
+
+## 
