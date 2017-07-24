@@ -44,6 +44,9 @@ jQuery(function ($) {
 	var App = {
 		init: function () {
 			this.todos = util.store('todos-jquery');
+			// $('#todo-template').html() raw html string and compile it as Handlebars
+			// todoTemplate is Handlebars template, in render()
+			// todoTemplate(data) < gets the data
 			this.todoTemplate = Handlebars.compile($('#todo-template').html());
 			this.footerTemplate = Handlebars.compile($('#footer-template').html());
 			this.bindEvents();
@@ -76,22 +79,24 @@ jQuery(function ($) {
 
 			var todos = this.getFilteredTodos();
 			// grab ul id #todo-list, .html() jQuery get return content (even html markup)
-			// using handlebars and templating to insert list items todos
-			// this.todoTemplate() is handlebars template, todos is data we want to render
+			// using HandlebarsTemplate todo insert  todos
+			// todoTemplate(todos) is HandlebarsTemplate which gets todos as data
+			// its resulting .html() insert into elements that has #todo-list
 			// todos is an array that is why we may refer it as 'this'
 			$('#todo-list').html(this.todoTemplate(todos));
 			// toggle boolean hides (F)/shows (T) element, visibility method
 			// show main part of app when there is some todos
 			// main includes toggle-all and todo-list elements
 			$('#main').toggle(todos.length > 0);
-			// this.getActiveTodos().length === 0 passes than 'checked' is applied to
-			// #toggle-all; it makes sense to show checked when there is no active todo
-			// .prop will set 'checked' depends second argmt true/false
+			
+			// for toggle all sets .property change 'checked' or unchecked depend on 
+			// this.getActiveTodos().length === 0 is true/false
+			// #toggle-all; when there is no active todo it is checked since nothing to more to check
 			$('#toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
 			// each time render() is called focus on #new-todo input text area
 			$('#new-todo').focus();
-			// browser based database
+			// browser based simple database so it remembers your last session when revisit the pg
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
@@ -298,7 +303,9 @@ jQuery(function ($) {
 			// when this.render runs it saves data and gets out of edit mode
 			this.render();
 		},
-    // when user press x delete function runs, e stands event
+
+		// when user press x delete function runs
+		// function (e) jquery event object
 		destroy: function (e) {
       // e.target stands for x we pressed
       // this.indexFromEl(e.target) first grab id > i (position i)

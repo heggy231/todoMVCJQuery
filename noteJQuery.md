@@ -335,17 +335,19 @@ handlebarsTemplate({title: 'I am the one'}); // make this into html element
 
 // we want to iterate over item in array
 var data = {todos: [{title: 'First'}, {title: 'Second'}, {title: 'Third'}]};
-// handlebar's for loop over every item
-// put obj inside with # {{#todos}} to end forLoop {{/todos}}
+// handlebar's for loop over every item, use its property key to loop over every itme in todos array
+// put object's property inside with # {{#todos}} to start forLoop {{/todos}} to end forLoop
 <ul> {{#todos}} <li> {{title}} </li> {{/todos}} </ul>
 
 // we want to iterate over item in array using 'this' keyword
 // update your array with no property but simple array
 var data = [{title: 'First'}, {title: 'Second'}, {title: 'Third'}];
-// handlebar's for loop over every item but this time we refer todos as this
+// html string that loops over data obj which refering it by using 'this' keyword
+// gets the value of title
 var htmlTemplate = '<ul> {{#this}} <li> {{title}} </li> {{/this}} </ul>';
+// compile into handlebarsTemplate
 var handlebarsTemplate = Handlebars.compile(htmlTemplate);
-
+// resulting handlebarsTemplate gets the data
 handlebarsTemplate(data);
 
 "<ul>  <li> First </li>  <li> Second </li>  <li> Third </li>  </ul>"
@@ -353,8 +355,14 @@ handlebarsTemplate(data);
 - if stmt logic in template
 useCase: applying complicated logic in template which we may use conditions in JS to conditionally show or hide certain html elements
 
+// if stmt in Handlebars: if show is true > TRUE
+// if show is false > nothing is displayed
+var htmlTemplate = '<div>{{#if show}}TRUE{{/if}}</div>';
+
+// compile it into Handlebars template
 var handlebarsTemplate = Handlebars.compile(htmlTemplate);
-handlebarsTemplate({show: true}); // expect to see <div> TRUE </div>
+// finally, resulting handlebarsTemplate pass in data {show: true}
+handlebarsTemplate({show: true}); 
 // output: "<div>  TRUE  </div>"
 
 // 2nd case, pass in show is false
@@ -363,7 +371,13 @@ handlebarsTemplate({show: false}); // returns empty <div>  </div>
 
 - ex of handlebar use in our app 
 # under App.init() $('#todo-template').html() is handlebar template
-$('#todo-template').html() 
+
+// it is getting compiled into Handlebars
+
+this.todoTemplate = Handlebars.compile($('#todo-template').html());
+
+- see it in console
+$('#todo-template').html())
 
 // output: string of html which is html template
 "
@@ -378,11 +392,33 @@ $('#todo-template').html()
 			</li>
 		{{/this}}
 "
-// This is raw html string and we need to compile it as Handlebars
 
+- try with the footer-template
+1) go to console from todo app site
+
+$('#footer-template').html()
+
+// output: string html with Handlebars syntax
+"
+			<span id="todo-count"><strong>{{activeTodoCount}}</strong> {{activeTodoWord}} left</span>
+			<ul id="filters">
+				<li>
+					<a {{#eq filter 'all'}}class="selected"{{/eq}} href="#/all">All</a>
+				</li>
+				<li>
+					<a {{#eq filter 'active'}}class="selected"{{/eq}}href="#/active">Active</a>
+				</li>
+				<li>
+					<a {{#eq filter 'completed'}}class="selected"{{/eq}}href="#/completed">Completed</a>
+				</li>
+			</ul>
+			{{#if completedTodos}}<button id="clear-completed">Clear completed</button>{{/if}}
+		"
 Handlebars.compile( $('#todo-template').html() );
 
-- under index.html you can see how we deliver a template to the browser
+## How to display .html(HandlebarsTemplate(data))into HTML?
+ 
+- you can see how we deliver a template to the browser
 refer to: http://handlebarsjs.com/
 
 
@@ -402,6 +438,22 @@ refer to: http://handlebarsjs.com/
 			</li>
 		{{/this}}
 		</script>
+
+## Handlebars example (http://handlebarsjs.com/)
+You can deliver a template to the browser by including it in a <script> tag.
+
+
+
+<script id="entry-template" type="text/x-handlebars-template">
+  <div class="entry">
+    <h1>{{title}}</h1>
+    <div class="body">
+      {{body}}
+    </div>
+  </div>
+</script>
+
+
 
 ## trim take out all the white spaces
 '    d    '.trim()
