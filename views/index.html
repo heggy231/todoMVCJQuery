@@ -51,8 +51,8 @@
 				<li>
 					<!-- eq is custom Handlebar  
 					looking at filter property from renderFooter this.footerTemplate(data).  One of data passed in is filter: this.filter-->
-					<!-- look at filter property 'all'/'active'/'completed' -->
-					<!-- if filter prop is all (is all selected?) then have outline on it (apply class selected) -->
+					<!-- picks one of filter property 'all'/'active'/'completed' -->
+					<!-- if filter prop all (is all selected?) true then have outline on it (apply class selected), highlight current filter selected with box around it -->
 					<a {{#eq filter 'all'}}class="selected"{{/eq}} href="#/all">All</a>
 				</li>
 				<li>

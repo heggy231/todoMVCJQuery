@@ -2,11 +2,15 @@
 jQuery(function ($) {
 	'use strict';
 	
+	// To run debugger on .registerHelper just add a another item with break point .registerHelper()
 	// we are adding Handlebars helper to create
 	// custom handlebar. eq stands for equality
+	// options let you have two templates depend on situations
 	Handlebars.registerHelper('eq', function (a, b, options) {
-		// a is equal to b then run option.fn() and option.inverse() are HandlebarsTemplates which pass in this (data object)
+		// a is equal to b then run option.fn() and option.inverse() are HandlebarsTemplates which pass 'this' (data object same obj we passed inside of .footerTemplate(data) in renderFooter() method)
 		// if a === b pass, run .fn(this) {{else}} run .inverse()
+		// debugger > hover over 'this' you can see it has activeTodoCount, activeTodoWord, completedTodos, filter
+		// same as the data obj passed into 
 		return a === b ? options.fn(this) : options.inverse(this);
 	});
 

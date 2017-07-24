@@ -463,3 +463,10 @@ You can deliver a template to the browser by including it in a <script> tag.
 ## trim take out all the white spaces
 '    d    '.trim()
 // output: "d"
+
+
+## how to live edit under Elements in console
+
+1. element tab: select <script id="footer-template" type="text/x-handlebars-template">
+2. left side you see '...' click on 'edit as HTML'
+you can live code see the change reflected on website
