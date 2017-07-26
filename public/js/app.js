@@ -62,9 +62,15 @@ jQuery(function ($) {
 		// ex: util.store('todos-jquery', this.todos);
 		
 		store: function (namespace, data) {
+			// when both namespace and data exist inside of arguments
+			// save data in render's util.store('todos-jquery', this.todos);
 			if (arguments.length > 1) {
 				return localStorage.setItem(namespace, JSON.stringify(data));
+			// when you just have namespace only like in 
+			// .init's util.store('todos-jquery');
 			} else {
+				// go to app pg in console type localStorage
+				// note namespace = todos-jquery
 				var store = localStorage.getItem(namespace);
 				return (store && JSON.parse(store)) || [];
 			}
@@ -78,6 +84,7 @@ jQuery(function ($) {
       // from local storage named 'todos-jquery'
 			//  then use data to set up [todos] array when app starts up
 			// The other way .store method is used is under render() to SAVE data
+			// Note: another place .store is called is at the end of .render
 			this.todos = util.store('todos-jquery');
 			
 			// $('#todo-template').html() raw html string and compile it as Handlebars
@@ -137,11 +144,11 @@ jQuery(function ($) {
 			// each time render() is called focus on #new-todo input text area
 			$('#new-todo').focus();
 
-			// Browser based simple database so it remembers 
-      // your last session when revisit the pg
-			// util.store is called with 2 argumtne ('string', array)
-			// 	to SAVE [todos] in 'todos-jquery'
-			// note: the other way to use .store method under init() method to GET data
+			// .store() is local storage browser based db
+      // remembers last session when revisit the pg
+			// util.store is called with 2 argmt ('string', array) to SAVE data
+			// this.todos array in 'todos-jquery' namespace
+			// note: .store with 1 argmt is called under .init() which GET data
 			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {

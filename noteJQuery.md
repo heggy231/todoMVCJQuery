@@ -508,4 +508,58 @@ function pluralize (count, word) {
 pluralize(0, 'item'); // output: items since count != 1 (word+'s')
 pluralize(1, 'item'); // output: item count === 1
 
+## Local Storage
+- inside of console:
 - Note in video, Resources now is called Application
+https://watchandcode.com/courses/77710/lectures/1297072 @ 10 min
+
+> localStorage
+// you can view what is stored currently output: Storage {todos-jquery: "[{"id":"37d41f03-c7ec-437c-b9bb-dcc179c6c28d","title":"do","completed":false}]", length: 1}
+
+// you can view what is stored currently
+// under Application > Storage > Local Storage
+// setItem SAVE data
+> localStorage.setItem('newData', 'I am saved to local storage');
+
+// getItem retrieves (GET) data
+> localStorage.getItem 
+// output: function getItem() { [native code] }
+
+// to update value saved, just setItem overwrite
+localStorage.setItem('newData', 'trying to change')
+
+// retrieve data that I just updated in newData
+localStorage.getItem('newData')
+// output: "trying to change"
+
+- now we learn how to store 'string'; let's store array in local storage
+// issue when trying to save array
+// eventhough we try to store array it returns string
+localStorage.setItem('newData', [1, 2, 3]);
+
+// GET array
+localStorage.getItem('newData', [1, 2, 3]);
+// output: "1,2,3"
+
+// for our project we are not only trying to save array
+// but save objects inside of array
+localStorage.setItem('newData', [{}, {}, {}])
+
+localStorage.getItem('newData')
+// output: "[object Object],[object Object],[object Object]"
+
+// to resolve local storage not able to store data in obj form
+// javaScript we can save object as string; JSON.stringify
+
+// Realize localStorage only stores strings We must use JSON.stringify
+// to turn object into string
+var objectsArray = [{name: 'Heggy'}, {name: 'Watch'}];
+
+JSON.stringify(objectsArray);  // output: "[{"name":"Heggy"},{"name":"Watch"}]"
+
+// turns obj into string JSON.stringify
+var stringVersionOfArray = JSON.stringify(objectsArray);
+stringVersionOfArray // output: "[{"name":"Heggy"},{"name":"Watch"}]"
+
+// convert back into Object using JSON obj's method parse
+JSON.parse(stringVersionOfArray);
