@@ -563,3 +563,54 @@ stringVersionOfArray // output: "[{"name":"Heggy"},{"name":"Watch"}]"
 
 // convert back into Object using JSON obj's method parse
 JSON.parse(stringVersionOfArray);
+
+# Play in console to understand (store && JSON.parse(store)) || [];
+
+	var store = localStorage.getItem(namespace);
+	return (store && JSON.parse(store)) || [];
+- go to Application > localStorage clear out all todoMVC.com data
+- starting scratch, no prev. session's data in localStorage
+
+// edit it namespace = 'todos-jquery'
+	var store = localStorage.getItem('todos-jquery');
+// store will return 'null' since we have no data there.
+	store; // null
+
+// if you like to store is truthy by putting inside  Boolean()
+Boolean(store && JSON.parse(store)); // false
+// store is falsy
+Boolean(store);
+// therefore, it just returns [] in the code
+
+refer to the code in store function:
+	var store = localStorage.getItem(namespace);
+	// if store is truthy (exist) then parse data back to obj
+	// otherwise, return empty array <- ex of first start app
+	return (store && JSON.parse(store)) || [];
+
+- now add the data in the app (make the store truthy)
+var store = localStorage.getItem('todos-jquery')
+store
+// stringify JSON string is output:
+// output: "[{"id":"b962761a-9479-43b5-8079-efae075b5dca","title":"hello","completed":false}]"
+
+// next line of code: we now expect to see string data convert back to obj
+// using JSON.parse() method
+store && JSON.parse(store) // object
+
+// check if store is truthy
+Boolean(store); // true localStorage.getItem('todos-jquery')
+Boolean(JSON.parse(store)) // true with obj now
+
+- when you have a or stmt if the first part is true; it will stop and return that data
+return (store && JSON.parse(store)) || [];
+// if store is true then return obj from JSON.parse(store)
+
+Try pasting in (store && JSON.parse(store)) || [] to see what returns now 
+Remember store is truthy so it will return the second argument
+
+(store && JSON.parse(store)) || []
+// output: obj data from localStorage
+
+## New Concepts idea of Routing: connect URL with code
+- we are using director.js library for routing

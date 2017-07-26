@@ -62,16 +62,23 @@ jQuery(function ($) {
 		// ex: util.store('todos-jquery', this.todos);
 		
 		store: function (namespace, data) {
-			// when both namespace and data exist inside of arguments
-			// save data in render's util.store('todos-jquery', this.todos);
+			// if there are more than 1 arguments (namespace, data)
+			//  Save (setItem) data exec. by render's .store('todos-jquery', this.todos);
+			// namespace is always 'todos-jquery'
 			if (arguments.length > 1) {
+				// under render util.store('todos-jquery', this.todos);
+				// note this.todos is array > must turn it into string format
+				// so that we can save it under localStorage as string
 				return localStorage.setItem(namespace, JSON.stringify(data));
-			// when you just have namespace only like in 
-			// .init's util.store('todos-jquery');
+			// .store (namespace only) -> arguments.length less equal 1
+			// this case applies to .init's util.store('todos-jquery');
+			// We GET data
 			} else {
 				// go to app pg in console type localStorage
-				// note namespace = todos-jquery
+				// note: namespace = 'todos-jquery'
 				var store = localStorage.getItem(namespace);
+				// if store is truthy (exist) then parse data back to obj
+				// otherwise, return empty array <- ex of first start app
 				return (store && JSON.parse(store)) || [];
 			}
 		}
@@ -88,12 +95,14 @@ jQuery(function ($) {
 			this.todos = util.store('todos-jquery');
 			
 			// $('#todo-template').html() raw html string and compile it as Handlebars
-			// todoTemplate is Handlebars template, in render()
+			// todoTemplate/footerTemplate creates Handlebars template
 			// todoTemplate(data) < gets the data
 			this.todoTemplate = Handlebars.compile($('#todo-template').html());
 			this.footerTemplate = Handlebars.compile($('#footer-template').html());
+			// sets up all event listeners .on()
 			this.bindEvents();
 
+			// 
 			new Router({
 				'/:filter': function (filter) {
 					this.filter = filter;
