@@ -571,16 +571,19 @@ JSON.parse(stringVersionOfArray);
 - go to Application > localStorage clear out all todoMVC.com data
 - starting scratch, no prev. session's data in localStorage
 
-// edit it namespace = 'todos-jquery'
+// Remember to update namespace in localStorage.getItem(namespace) to 
+// localStorage.getItem('todos-jquery')
 	var store = localStorage.getItem('todos-jquery');
-// store will return 'null' since we have no data there.
-	store; // null
+// store will return 'null' since we have no data there since cleared
+// all localStorage
+	store; // output: null
 
-// if you like to store is truthy by putting inside  Boolean()
+// Check if store is truthy > Boolean()
 Boolean(store && JSON.parse(store)); // false
-// store is falsy
-Boolean(store);
-// therefore, it just returns [] in the code
+// Short-circuit evaluation if store is falsy
+Boolean(store);  // output: false
+// Boolean(false && JSON.parse(store)) will not evaluate JSON.parse(store)
+// Logic gurantees that stmt will be false and skips the other side of &&
 
 refer to the code in store function:
 	var store = localStorage.getItem(namespace);
@@ -589,10 +592,10 @@ refer to the code in store function:
 	return (store && JSON.parse(store)) || [];
 
 - now add the data in the app (make the store truthy)
-var store = localStorage.getItem('todos-jquery')
-store
+var store = localStorage.getItem('todos-jquery');
+store;
 // stringify JSON string is output:
-// output: "[{"id":"b962761a-9479-43b5-8079-efae075b5dca","title":"hello","completed":false}]"
+// output: "[{"id":"b962761a-9479-43b5-...ed":false}]"
 
 // next line of code: we now expect to see string data convert back to obj
 // using JSON.parse() method
@@ -600,7 +603,8 @@ store && JSON.parse(store) // object
 
 // check if store is truthy
 Boolean(store); // true localStorage.getItem('todos-jquery')
-Boolean(JSON.parse(store)) // true with obj now
+// JSON.parse("string of todos obj") convert string into obj 
+Boolean(JSON.parse(store)) // evaluates to true and returns obj
 
 - when you have a or stmt if the first part is true; it will stop and return that data
 return (store && JSON.parse(store)) || [];
@@ -612,5 +616,73 @@ Remember store is truthy so it will return the second argument
 (store && JSON.parse(store)) || []
 // output: obj data from localStorage
 
-## New Concepts idea of Routing: connect URL with code
+## New Concepts idea of Routing: connect URL with code 
+# Router uses director.js
 - we are using director.js library for routing
+http://todomvc.com/examples/jquery/node_modules/director/build/director.js
+
+- Github:
+https://github.com/flatiron/director
+-  Definition of director: Director is a router. Routing is the process 
+of determining what code to run when a URL is requested.
+
+Director Routing Demo 
+https://glitch.com/edit/#!/silent-dragonfly [Heggy's copy]
+https://hyperdev.com/#!/project/hurricane-flower [Instructor's copy]
+
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Director Routing Demo</title>
+		<link id="favicon" rel="icon" href="https://hyperdev.com/favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+
+	  <h1>Director Routing Demo</h1>
+	  
+	  <div>
+		/* notice: https://silent-dragonfly.glitch.me/#/all
+							 https://silent-dragonfly.glitch.me/#/active
+							 https://silent-dragonfly.glitch.me/#/completed
+							 https://silent-dragonfly.glitch.me/#/watchandcode
+		Note: # do not require full page refresh and pg behavior handled by javascript */
+  	  <a href="#/all">#/all</a><br>
+  	  <a href="#/active">#/active</a><br>
+  	  <a href="#/completed">#/completed</a><br>
+  	  <a href="#/watchandcode">#/watchandcode</a><br>
+	  </div>
+	
+	  // add director.js library
+		<script src="js/director.js"></script>
+		<script>
+		// Router below is configuring behavior when pg loads
+				new Router({
+				// @ URL# '/watchandcode' (key) > log in console 'Thank ..'
+				// "key" is part of URL you want to go
+			  '/watchandcode': function() {
+			    console.log('Thank you for supporting Watch and Code!')
+			  },
+
+				// colon > :filter makes it accessible inside of call back function. 
+				// function(filter) filter is variable is a variable
+				// colon function treats URL as variable :var > passed to callBack func
+				// ex) function('/all') > console.log('all', todos); 
+				'/:filter': function (filter) {
+				  console.log(filter, 'todos');
+				}
+			// when app starts up start from /all URL
+			// https://silent-dragonfly.glitch.me/#/all
+			}).init('/all');
+		</script>
+	</body>
+</html>
+
+- note: visit https://silent-dragonfly.glitch.me in main page
+It will be reroute you to /all 
+https://silent-dragonfly.glitch.me/#/all
+This is effect of new Router.init('/all'); the home page routing to right part of app
+
+## note about URL/# 
+- # doesn't cause page refresh

@@ -77,8 +77,8 @@ jQuery(function ($) {
 				// go to app pg in console type localStorage
 				// note: namespace = 'todos-jquery'
 				var store = localStorage.getItem(namespace);
-				// if store is truthy (exist) then parse data back to obj
-				// otherwise, return empty array <- ex of first start app
+				// if store is truthy/ data exist then parse string data back its orig obj
+				// otherwise, return empty array <- this runs when first start app
 				return (store && JSON.parse(store)) || [];
 			}
 		}
@@ -86,28 +86,31 @@ jQuery(function ($) {
 
 	var App = {
 		init: function () {
-			// util.store method is called with 1 argument (string)
-			// util.store('todos-jquery') is to GET data
-      // from local storage named 'todos-jquery'
-			//  then use data to set up [todos] array when app starts up
-			// The other way .store method is used is under render() to SAVE data
-			// Note: another place .store is called is at the end of .render
+			// Set up data: Initially this.todos empty array
+			//  if util.store('todos-jquery') exists > returns [data]
 			this.todos = util.store('todos-jquery');
 			
 			// $('#todo-template').html() raw html string and compile it as Handlebars
-			// todoTemplate/footerTemplate creates Handlebars template
-			// todoTemplate(data) < gets the data
+			// todoTemplate/footerTemplate creates Handlebars templates for 
+			// todo and footer in our app
 			this.todoTemplate = Handlebars.compile($('#todo-template').html());
 			this.footerTemplate = Handlebars.compile($('#footer-template').html());
-			// sets up all event listeners .on()
+			// sets up eventListeners .on('keyup'/'change'/'click) bindEvents method
 			this.bindEvents();
 
-			// 
+			// Connects routing with code
 			new Router({
+				// :filter pg URL as variable /all/active, filter argment passed into callback
 				'/:filter': function (filter) {
+					// if at /all this(app).filter = 'all' > inside of app.renders 
+					// getfiltertodo() is called to obtain right filtered data.
 					this.filter = filter;
 					this.render();
+				// binds 'this' to 'App' obj; callback function 'this' points to higher order Func's this
+				// without .bind(this); 'this' points to Router obj.  below link has good diagram of this
+				// https://docs.google.com/document/d/1aC-6YrDyRyE1e5MvvzWd3DCoqN49u5lY0iuj-35xf8E/edit?usp=sharing
 				}.bind(this)
+			// load pg first on URL /all
 			}).init('/all');
 		},
 		bindEvents: function () {
