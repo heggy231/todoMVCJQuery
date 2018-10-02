@@ -2,7 +2,7 @@
 Walk through todoMVCJQuery with WatchAndCode
 
 **TodoMVC jQuery**
-Live Demo: https://rose-quince.glitch.me
+[Demo](https://rose-quince.glitch.me)
 
 This is the workspace for the watchandcode.com
 screencast series on the jQuery version of TodoMVC.
